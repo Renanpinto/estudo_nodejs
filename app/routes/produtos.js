@@ -7,22 +7,25 @@ module.exports = (app) => {
 
     app.get('/produtos',
         (req, res) => {
-
             const connection = app.infra.connectionFactory()
             const produtosBanco = new app.infra.ProdutosDAO(connection)
 
             produtosBanco.lista((err, results) => {
-                res.render("produtos/lista", { lista: results })
+                res.format({
+                    html: ()=>{
+                        res.render("produtos/lista", { lista: results })
+                    },
+                    json: ()=>{
+                        res.json(results)
+                    }
+                })
                 // res.send(livrosJson[0])        
             })
-
-
             connection.end()
-
             // res.render("produtos/lista")
         }
-
     )
+    
     app.get('/produtos/form',
         (req, res) => res.render("produtos/form")
     )
