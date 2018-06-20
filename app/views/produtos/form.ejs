@@ -1,6 +1,16 @@
 <html>
-    <body>
-        <form action="/produtos" method="post">
+
+<body>
+    <div class="erros">
+        <%if(errosValidacao){%>
+        <ul>
+            <%for(let i=0; i<errosValidacao.length; i++){%>
+                <li><%=errosValidacao[i].param%> - <%=errosValidacao[i].msg%></li>
+            <%}%>
+        </ul>
+        <%}%>
+    </div>
+    <form action="/produtos" method="post" id="formProduto">
 
             <div>
                 <label for="titulo">Titulo</label>
@@ -18,4 +28,5 @@
             <input type="submit" value="gravar"/>
         </form>
     </body>
+
 </html>
