@@ -20,10 +20,9 @@ const client = http.request(configuracoes, (res) =>{
 })
 
 const produto = {
-    titulo: 'Node json',
+    titulo: '',
     descricao: 'descricao node json',
     preco: 20
 }
 
 client.end(JSON.stringify(produto))
-console.log(JSON.stringify(produto))

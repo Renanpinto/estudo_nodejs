@@ -27,7 +27,7 @@ module.exports = (app) => {
     )
     
     app.get('/produtos/form',
-        (req, res) => res.render("produtos/form", {errosValidacao: {}})
+        (req, res) => res.render("produtos/form", {errosValidacao: {}, produto: {}})
     )
     app.post('/produtos', (req, res) => {
 
@@ -42,7 +42,16 @@ module.exports = (app) => {
 
         const erros = req.validationErrors()
         if(erros){
-            res.render('produtos/form', { errosValidacao: erros })
+            res.format({
+                html: ()=>{
+                    res.render('produtos/form', { errosValidacao: erros, produto: produto })
+                },
+                json: ()=>{
+                    res.status(400)
+                    res.json(erros)
+                }
+            })
+
             return
         }
 
