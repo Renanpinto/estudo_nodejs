@@ -21,8 +21,8 @@ const client = http.request(configuracoes, (res) =>{
 
 const produto = {
     titulo: '',
-    descricao: 'descricao node json',
-    preco: 20
+    descricao: ''
+    // preco: 20
 }
 
 client.end(JSON.stringify(produto))

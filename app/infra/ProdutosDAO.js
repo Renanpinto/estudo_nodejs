@@ -1,17 +1,15 @@
 class ProdutosDAO {
-    constructor(connection){
-        this._connection = connection
-    }
+  constructor(connection) {
+    this.connection = connection;
+  }
 
-    lista(callback){
-        this._connection.query('select * from livros', callback)
-    }
+  lista(callback) {
+    this.connection.query('select * from livros', callback);
+  }
 
-    salva(produto, callback){
-        this._connection.query('insert into livros set ?', produto, callback)
-    }
+  salva(produto, callback) {
+    this.connection.query('insert into livros set ?', produto, callback);
+  }
 }
 
-module.exports = () => {
-    return ProdutosDAO;
-}
+module.exports = () => ProdutosDAO;

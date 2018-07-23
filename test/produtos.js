@@ -1,25 +1,40 @@
-const http = require('http')
-const assert = require('assert')
+const express = require('../config/express')();
+const request = require('supertest')(express);
+const DatabaseCleaner = require('database-cleaner');
+const databaseCleaner = new DatabaseCleaner('mysql'); //type = 'mongodb|redis|couchdb'
 
-describe('#ProdutosController', function(done){
 
-    it('#listagem Json', function(){
 
-        const configuracoes = {
-            hostname: 'localhost',
-            port: 3000,
-            path: '/produtos',
-            headers:{
-                'Accept': 'application/json'
-            }
 
-        }
+/*set NOVE_ENT=test*/
+describe('#ProdutosController', () => {
 
-        http.get(configuracoes, (res) =>{
-            assert.equal(res.statusCode,200)
-            assert.equal(res.headers['content-type'], 'application/json; charset=utf-8')
+    beforeEach((done) => {
+        databaseCleaner.clean(express.infra.connectionFactory(), ()=>{
+            done();
+        });
+    });
 
-            done()
-        })
-    })
-})
+  it('#listagem Json', (done) => {
+    request.get('/produtos')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+
+
+
+  it('#cadastro de um produto invalido', (done) => {
+      request.post('/produtos')
+          .send({titulo:"", descricao: ""})
+          .expect(400, done);
+  });
+
+  it('cadastro de um produto valido', (done) => {
+      request.post('/produtos')
+          .send({titulo:"titulo teste", descricao: "descricao teste", preco: 20})
+          .expect(302, done);
+  });
+
+
+});
