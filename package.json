@@ -4,9 +4,10 @@
   "description": "Aula node js alura",
   "main": "app.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha",
-    "start": "nodemon app.js",
-    "eslint": "./node_modules/eslint/bin/eslint"
+    "test": "set 'NODE_ENV=test' && node node_modules/mocha/bin/mocha",
+    "start": "set 'NODE_ENV=dev' && nodemon app.js",
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
+    "lint:fix": "eslint --fix **/*.js --ignore-pattern node_modules/"
   },
   "keywords": [
     "web",
