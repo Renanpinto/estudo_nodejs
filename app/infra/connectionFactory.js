@@ -19,6 +19,4 @@ function createDBConnection() {
 }
 
 // WRAPPER
-module.exports = () => { 
-  return createDBConnection;
-};
+module.exports = () => createDBConnection;

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+	<html>
+	<body>
+		<form method="POST" action="/promocoes">
+			<input type="text" name="Cadastrando uma promocao"/>
+			<div>
+				<select name="livro[id]">
+					<%for(let i in lista){%>
+						<option value"<%=lista[i].id%>"><%=lista[i].titulo%></option>
+					<%}%>
+
+				</select>
+			</div>
+			<input type="submit" value="Cadastrar promoção relâmpago">
+		</form>
+	</body>
+
+	</html>
